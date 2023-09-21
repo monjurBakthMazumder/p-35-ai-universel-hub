@@ -4,7 +4,10 @@ const AiDetails = () => {
     const allData = useLoaderData()
     const data = allData.data
     const  {accuracy, description, features, image_link, input_output_examples,integrations, pricing, tool_name, use_cases, website} = data;
-    console.log(data);
+    const allFeature = Object.values(features)
+    console.log(features);
+    console.log(allFeature);
+
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(-1)
@@ -30,16 +33,21 @@ const AiDetails = () => {
             </div>
             </div>
             <div className="flex-1">
-                <h1 className="text-2xl font-bold">{tool_name}</h1>
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3">{tool_name}</h1>
                 <p className="text-[13px] my-1">WebSire : <Link to={website} target="_blank" className="font-bold underline ">{tool_name}</Link></p>
                 <p>{description}</p>
                 <h1 className="text-lg font-semibold underline mt-3 mb-1">Accuracy</h1>
                 <p>Accuracy: {(accuracy.score)* 100}%</p>
                 <p>{accuracy.description}</p>
                 <h1 className="text-lg font-semibold underline mt-3 mb-1">Features</h1>
-                {/* {
-                    features.map((feature,i) => <p key={i}>{i}. {feature}</p>)
-                } */}
+                {
+                    allFeature.map((feature,i)=> 
+                        <div key={i}>
+                            <p>{++i}. {feature.feature_name}</p>
+                            <p className="text-xs">{feature.description}</p>
+                        </div>
+                    )
+                }
                 <h1 className="text-lg font-semibold underline mt-3 mb-1">Integrations</h1>
                 {
                     integrations.map((integration,i)=> <p key={i}>{++i}. {integration}</p>)
